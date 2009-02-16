@@ -27,7 +27,9 @@ END
 # Initialize submodules
 git :submodule => "init"
 
-if ! File.exist?("#{RAILS_ROOT}/db/schema.rb")
+if !File.exist?("#{RAILS_ROOT}/db/schema.rb")
+  setupdb = yes?("Would you like the script to attempt to setup your database?")
+
   # Get the application name
   appname = (ENV["APPNAME"]) ? ENV["APPNAME"] : (File.basename(RAILS_ROOT) rescue "yourapp")
   begin
@@ -222,7 +224,7 @@ rake('gems:install', :sudo => true)
 
 # Set up sessions, RSpec, user model, OpenID, etc, and run migrations
 generate("rspec")
-if ! File.exist?("#{RAILS_ROOT}/db/schema.rb")
+if setupdb
   rake('mysql_setup:full')
 end
 
