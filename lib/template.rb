@@ -225,7 +225,7 @@ rake('gems:install', :sudo => true)
 # Set up sessions, RSpec, user model, OpenID, etc, and run migrations
 generate("rspec")
 if setupdb
-  rake('mysql_setup:full')
+  rake('mysql_setup:full', :sudo => true)
 end
 
 unless File.exist?("#{RAILS_ROOT}/config/application.yml")
