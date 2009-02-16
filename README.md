@@ -15,14 +15,17 @@ Use at your own risk!
 Usage
 =====
 
-Note that this requires Rails 2.3 in order to function.  Assuming you have Rails 2.3 installed, to use the template
-for a new application, run:
+This template is distributed as a normal Rails plugin and invoked via a Rake task (which, in turn, invokes the
+rails:template task).
 
-  ./script/plugin install git://github.com/mlightner/loaded_rails_template.git
-  rake loaded_rails_template
+Note that this requires Rails 2.3 in order to function.  Assuming you have Rails 2.3 installed, to use the template on
+your application, from its root directory, run:
+
+    ./script/plugin install git://github.com/mlightner/loaded_rails_template.git
+    rake loaded_rails_template
 
 If you don't have Rails 2.3 installed yet, you can freeze your app to edge Rails and then run the plugin's rake task.
 
 
 
-Copyright (c) 2009 Matt Lightner, released under the MIT license
+_Copyright (c) 2009 Matt Lightner, released under the MIT license_
