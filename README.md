@@ -21,7 +21,7 @@ rails:template task).
 Note that this requires Rails 2.3 in order to function.  Assuming you have Rails 2.3 installed, to use the template on
 your application, from its root directory, run:
 
-    ./script/plugin install git://github.com/mlightner/loaded_rails_template.git
+    ./script/plugin install git://github.com/mlightner/loaded_rails_app.git
     rake loaded_rails_template
 
 If you don't have Rails 2.3 installed yet, you can freeze your app to edge Rails and then run the plugin's rake task.
