@@ -22,7 +22,7 @@ Note that this requires Rails 2.3 in order to function.  Assuming you have Rails
 your application, from its root directory, run:
 
     ./script/plugin install git://github.com/mlightner/loaded_rails_app.git
-    rake loaded_rails_template
+    rake loaded_rails_app
 
 If you don't have Rails 2.3 installed yet, you can freeze your app to edge Rails and then run the plugin's rake task.
 
