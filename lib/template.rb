@@ -206,13 +206,17 @@ plugin 'haml',
        :submodule => true
 
 plugin 'ar_fixtures',
-       :svn => 'http://topfunky.net/svn/plugins/ar_fixtures'
-
-plugin 'enumerations_mixin',
-       :svn => 'http://svn.protocool.com/public/plugins/enumerations_mixin'
+       :submodule => true
+       :git => 'git://github.com/topfunky/ar_fixtures.git'
 
 plugin 'annotate_models',
-       :svn => 'http://repo.pragprog.com/svn/Public/plugins/annotate_models'
+       :submodule => true
+       :git => 'git://github.com/ctran/annotate_models.git'
+
+plugin 'enumerations_mixin',
+       :submodule => true
+       :git => 'git://github.com/mlightner/enumerations_mixin.git'
+
 
 
 
