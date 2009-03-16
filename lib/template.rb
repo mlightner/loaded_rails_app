@@ -177,8 +177,8 @@ plugin 'aasm',
        :git => 'git://github.com/rubyist/aasm.git',
        :submodule => true
 
-plugin 'fancy_rake',
-       :git => 'git://github.com/mlightner/fancy_rake.git',
+plugin 'project_search',
+       :git => 'git://github.com/37signals/project_search.git'
        :submodule => true
 
 plugin 'enhanced_console',
@@ -227,6 +227,7 @@ gem 'RedCloth'
 git :submodule => "init"
 
 rake('gems:install', :sudo => true)
+rake('gems:unpack:dependencies', :sudo => true)
 
 # Set up sessions, RSpec, user model, OpenID, etc, and run migrations
 generate("rspec")
