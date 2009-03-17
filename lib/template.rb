@@ -178,7 +178,7 @@ plugin 'aasm',
        :submodule => true
 
 plugin 'project_search',
-       :git => 'git://github.com/37signals/project_search.git'
+       :git => 'git://github.com/37signals/project_search.git',
        :submodule => true
 
 plugin 'enhanced_console',
@@ -206,15 +206,15 @@ plugin 'haml',
        :submodule => true
 
 plugin 'ar_fixtures',
-       :submodule => true
+       :submodule => true,
        :git => 'git://github.com/topfunky/ar_fixtures.git'
 
 plugin 'annotate_models',
-       :submodule => true
+       :submodule => true,
        :git => 'git://github.com/ctran/annotate_models.git'
 
 plugin 'enumerations_mixin',
-       :submodule => true
+       :submodule => true,
        :git => 'git://github.com/mlightner/enumerations_mixin.git'
 
 
