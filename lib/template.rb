@@ -29,41 +29,6 @@ END
 # Initialize submodules
 git :submodule => "init"
 
-if !File.exist?("#{RAILS_ROOT}/db/schema.rb")
-  setupdb = yes?("Would you like the script to attempt to setup your database (for mySQL users with root access only)?")
-
-  # Get the application name
-  appname = (ENV["APPNAME"]) ? ENV["APPNAME"] : (File.basename(RAILS_ROOT) rescue "yourapp")
-  begin
-    appanswer = ask("What would you like to use as the database prefix? [#{appname}]")
-    appname = appanswer.strip if appanswer.to_s =~ /\w/
-  rescue Exception => e
-    # Ignore exception here because of Rails bug:
-    # http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/1655-ask-not-working-in-templaterunner-through-rake-railstemplate#ticket-1655-5
-  end
-  dbpass = newpass(16)
-
-  # Create streamlined database.yml config
-  file 'config/database.yml', <<-CODE
-<% db_prefix = "#{appname}" %>
-
-development: &base
-  adapter: mysql
-  host: localhost
-  username: <%= db_prefix %>
-  password: #{dbpass}
-  database: <%= db_prefix %>_d
-
-test:
-  <<: *base
-  database: <%= db_prefix %>_t
-
-production:
-  <<: *base
-  database: <%= db_prefix %>_p
-CODE
-end
-
 # Create migration for users table
 file 'db/migrate/0_create_users.rb', <<-CODE
 class CreateUsers < ActiveRecord::Migration
@@ -137,8 +102,8 @@ plugin 'exception_logger',
        :git => 'git://github.com/defunkt/exception_logger.git',
        :submodule => true
 
-plugin 'acts_as_taggable_redux',
-       :git => 'git://github.com/geemus/acts_as_taggable_redux.git',
+plugin 'acts-as-taggable-on',
+       :git => 'git://github.com/mbleigh/acts-as-taggable-on.git',
        :submodule => true
 
 plugin 'asset_packager',
@@ -173,8 +138,8 @@ plugin 'will_paginate',
        :git => 'git://github.com/mislav/will_paginate.git',
        :submodule => true
 
-plugin 'aasm',
-       :git => 'git://github.com/rubyist/aasm.git',
+plugin 'state_machine',
+       :git => 'git://github.com/pluginaweek/state_machine.git',
        :submodule => true
 
 plugin 'project_search',
@@ -187,18 +152,6 @@ plugin 'enhanced_console',
 
 plugin 'auto_migrations',
        :git => 'git://github.com/mlightner/auto_migrations.git',
-       :submodule => true
-
-plugin 'ansi',
-       :git => 'git://github.com/ssoroka/ansi.git',
-       :submodule => true
-
-plugin 'mysql_setup',
-       :git => 'git://github.com/mlightner/mysql_setup.git',
-       :submodule => true
-
-plugin 'active_scaffold',
-       :git => 'git://github.com/activescaffold/active_scaffold.git',
        :submodule => true
 
 plugin 'haml',
@@ -218,8 +171,6 @@ plugin 'enumerations_mixin',
        :git => 'git://github.com/mlightner/enumerations_mixin.git'
 
 
-
-
 # Install all gems
 gem 'RedCloth'
 
@@ -231,21 +182,14 @@ rake('gems:unpack:dependencies', :sudo => true)
 
 # Set up sessions, RSpec, user model, OpenID, etc, and run migrations
 generate("rspec")
-if setupdb
-  rake('mysql_setup:full', :sudo => true)
-end
 
 unless File.exist?("#{RAILS_ROOT}/config/application.yml")
 # Sample application settings file
 file 'config/application.yml', <<-CODE
 defaults: &defaults
-  cool:
-    saweet: nested settings
-    neat_setting: 24
 
 development:
   <<: *defaults
-  neat_setting: 800
 
 test:
   <<: *defaults
@@ -258,7 +202,6 @@ end
 
 rake('db:sessions:create')
 generate("authlogic", "user session")
-rake('acts_as_taggable:db:create')
 
 # Database probably isn't created at this point...
 rake('db:migrate')
